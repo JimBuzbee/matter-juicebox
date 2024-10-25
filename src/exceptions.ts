@@ -1,3 +1,6 @@
+
+// transated from: https://github.com/philipkocanda/juicebox-protocol
+
 // Define a base exception for Juicebox-related errors
 class JuiceboxException extends Error {
     constructor(message: string) {

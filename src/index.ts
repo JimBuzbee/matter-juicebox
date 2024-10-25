@@ -16,15 +16,18 @@ import { TemperatureSensorDevice } from "@matter/main/devices/temperature-sensor
 import { OnOffPlugInUnitDevice } from "@matter/main/devices";
 import net from 'net';
 import * as dgram from "dgram";
+import yargs from "yargs/yargs";
 
-// host and port of the JB - FIXME, use command line parameters
-const juiceBoxIP = '192.168.1.107'; 
-const juiceBoxTelnetPort = 2000;
-const juiceBoxPollSeconds = 30;
+const argv : any = yargs(process.argv).parse();
 
-// host and port of the Matter handler - FIXME, use command line parameters
-const matterHost = '192.168.1.86';
-const matterPort = 8047;
+// host and port of the JuiceBox
+const juiceBoxIP = argv.juicebox_host; // '192.168.1.107'; 
+const juiceBoxTelnetPort = argv.juicebox_telnet_port ?? 2000;
+const juiceBoxPollSeconds = argv.juicebox_poll_seconds ?? 30;
+
+// host and port of the Matter handler 
+const matterHost = argv.matter_host; //'192.168.1.86';
+const matterPort = argv.matter_port ?? 8047; 
 
 // TCP socket connection to the JB server
 let client : net.Socket;
@@ -38,35 +41,35 @@ const {deviceName,vendorName,passcode, discriminator,vendorId,productName,produc
    /**
      * Create a Matter ServerNode, which contains the Root Endpoint and all relevant data and configuration
      */
-   const node = await ServerNode.create({
-        // Required: Give the Node a unique ID which is used to store the state of this node
-        id: uniqueId,
+const node = await ServerNode.create({
+    // Required: Give the Node a unique ID which is used to store the state of this node
+    id: uniqueId,
 
-        // Provide Network relevant configuration like the port
-        // Optional when operating only one device on a host, Default port is 5540
-        network: {port,  },
+    // Provide Network relevant configuration like the port
+    // Optional when operating only one device on a host, Default port is 5540
+    network: {port,  },
 
-        // Provide Commissioning relevant settings
-        // Optional for development/testing purposes
-        commissioning: { passcode, discriminator, },
+    // Provide Commissioning relevant settings
+    // Optional for development/testing purposes
+    commissioning: { passcode, discriminator, },
 
-        // Provide Node announcement settings
-        // Optional: If Ommitted some development defaults are used
-        productDescription: { name: deviceName, deviceType: DeviceTypeId(OnOffPlugInUnitDevice.deviceType), },
+    // Provide Node announcement settings
+    // Optional: If Ommitted some development defaults are used
+    productDescription: { name: deviceName, deviceType: DeviceTypeId(OnOffPlugInUnitDevice.deviceType), },
 
-        // Provide defaults for the BasicInformation cluster on the Root endpoint
-        // Optional: If Omitted some development defaults are used
-        basicInformation: {
-            vendorName,
-            vendorId: VendorId(vendorId),
-            nodeLabel: productName,
-            productName,
-            productLabel: productName,
-            productId,
-            serialNumber: `matterjs-${uniqueId}`,
-            uniqueId,
-        },
-    });
+    // Provide defaults for the BasicInformation cluster on the Root endpoint
+    // Optional: If Omitted some development defaults are used
+    basicInformation: {
+        vendorName,
+        vendorId: VendorId(vendorId),
+        nodeLabel: productName,
+        productName,
+        productLabel: productName,
+        productId,
+        serialNumber: `matterjs-${uniqueId}`,
+        uniqueId,
+    },
+ });
 
 // Create a Matter "endpoint" - a component of a node. Add optional output Level Control 
 const plugEndpoint = new Endpoint( OnOffPlugInUnitDevice.with(LevelControlServer) , { id: "onoff" });

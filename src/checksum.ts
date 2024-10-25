@@ -1,3 +1,6 @@
+// transated from: https://github.com/philipkocanda/juicebox-protocol
+
+
 export class Checksum {
     static ALPHABET: string = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     payload: string;

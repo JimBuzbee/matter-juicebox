@@ -1,6 +1,8 @@
+
+// transated from: https://github.com/philipkocanda/juicebox-protocol
+
 import { Checksum } from './checksum.js';
 import { InvalidMessageFormat } from './exceptions.js';
-//import * as re from 'regexp';
 import moment from 'moment';
 
 class Message {
