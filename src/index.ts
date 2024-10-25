@@ -17,12 +17,12 @@ import { OnOffPlugInUnitDevice } from "@matter/main/devices";
 import net from 'net';
 import * as dgram from "dgram";
 
-// host and port of the JB
+// host and port of the JB - FIXME, use command line parameters
 const juiceBoxIP = '192.168.1.107'; 
 const juiceBoxTelnetPort = 2000;
 const juiceBoxPollSeconds = 30;
 
-// host and port of the Matter handler
+// host and port of the Matter handler - FIXME, use command line parameters
 const matterHost = '192.168.1.86';
 const matterPort = 8047;
 
