@@ -35,7 +35,7 @@ let opened: boolean = false;
 //---------------------------------------------------------------------------------------------------------------------------------
 async function main() {
 
-  /** Initialize configuration values */
+    /** Initialize configuration values */
     const {deviceName,vendorName,passcode, discriminator,vendorId,productName,productId,port,uniqueId,} = await getConfiguration();
 
     /**
@@ -85,17 +85,22 @@ async function main() {
 
     await node.add( temperatureEndpoint );
 
-    plugEndpoint.events.onOff.onOff$Changed.on(value => {console.log(`OnOff is now ${value ? "ON" : "OFF"}`);});
+    plugEndpoint.events.onOff.onOff$Changed.on(value => {
+         // FIXME - send message to JuiciBox
+        console.log(`OnOff is now ${value ? "ON" : "OFF"}`);
+    });
 
     plugEndpoint.events.levelControl.currentLevel$Changed.on ( value => {
         const m = new Message()
         
         m.time = moment();
-        m.offline_amperage = 20;
+        m.offline_amperage = 20; // FIXME - what shoud go here?
         m.instant_amperage = value ?? 0;
         const builtMessage = m.build();
         console.log(builtMessage);
         console.log(m.inspect());
+
+        // FIXME - send message to JuiciBox
 
         console.log(`Plug level is now ${value}`);
     });
