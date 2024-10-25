@@ -1,4 +1,4 @@
-// transated from: https://github.com/philipkocanda/juicebox-protocol
+// translated from: https://github.com/philipkocanda/juicebox-protocol
 
 
 export class Checksum {

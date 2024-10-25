@@ -29,7 +29,7 @@ const juiceBoxPollSeconds = argv.juicebox_poll_seconds ?? 30;
 const matterHost = argv.matter_host; //'192.168.1.86';
 const matterPort = argv.matter_port ?? 8047; 
 
-// TCP socket connection to the JB server
+// TCP socket connection to the JuiceBox server
 let client : net.Socket;
 
 // track state of connection as we know it
@@ -72,14 +72,15 @@ const node = await ServerNode.create({
  });
 
 // Create a Matter "endpoint" - a component of a node. Add optional output Level Control 
+// there are choices here regarding what type of Matter device(s) or Bridge could be used 
 const plugEndpoint = new Endpoint( OnOffPlugInUnitDevice.with(LevelControlServer) , { id: "onoff" });
 await node.add( plugEndpoint );
 
-// FIXME - should be set from 1st JB UDP message
+// FIXME - should be set from 1st JuiceBox UDP message
 plugEndpoint.set({ levelControl: { minLevel: 0 }}); 
 plugEndpoint.set({ levelControl: { maxLevel: 40 }}); 
 
-// JB also reports temperature
+// JuiceBox also reports temperature
 const temperatureEndpoint = new Endpoint(TemperatureSensorDevice, {id: "tempsensor", temperatureMeasurement: {measuredValue: null,},});
 
 await node.add( temperatureEndpoint );
@@ -257,7 +258,7 @@ function basicMessageParse(data: Uint8Array): {
   
   let active = true;
   let parts = new TextDecoder("utf-8").decode(data).split(/,|!|:/);
-  parts.shift(); // Remove JuiceBox ID - probably should keep this to support multiple JB
+  parts.shift(); // Remove JuiceBox ID - probably should keep this to support multiple JuiceBox
   parts.pop();   // Remove Ending blank
   parts.pop();   // Remove Checksum
 

@@ -1,5 +1,5 @@
 
-// transated from: https://github.com/philipkocanda/juicebox-protocol
+// translated from: https://github.com/philipkocanda/juicebox-protocol
 
 import { Checksum } from './checksum.js';
 import { InvalidMessageFormat } from './exceptions.js';
