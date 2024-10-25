@@ -27,5 +27,7 @@ npm install
 edit the run.sh file to chane IP address and then execute it. When the QR code appears on the screen, scan it in using
 your chosen Matter controller.
 
+![JuiceBox Display Using Home Assistant](screenshot.png "JuiceBox Display Using Home Assistant")
+
 
 
