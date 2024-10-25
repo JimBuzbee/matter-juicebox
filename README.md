@@ -15,7 +15,7 @@ JuiceBoxProxy (https://github.com/JuiceRescue/juicepassproxy) code that has been
 hard work from these folks
 
 Also of note: I would not recommend running this code continuously. The interface to the JuiceBox has been reverse engineerd and it
-not completly understood yet and there may be hidden side effects such as writes to the internal EEPROM that could cause wear.
+not completly understood yet. There may be hidden side effects such as writes to the internal EEPROM that could cause wear and tear.
 
 
 ## Running
@@ -28,8 +28,9 @@ cd matter-device
 npm install
 ```
 
-edit the run.sh file to chane IP address and then execute it. When the QR code appears on the screen, scan it in using
-your chosen Matter controller.
+Edit the run.sh file to change IP address and then execute it. When the QR code appears on the screen, scan it like 
+any other Matter device in using your chosen Matter controller. You'll likely get a warning regarding an uncertified
+device. Accept or not. For complete Matter command-line options see: https://github.com/project-chip/matter.js/tree/main/packages/examples
 
 ![JuiceBox Display Using Home Assistant](screenshot.png "JuiceBox Display Using Home Assistant")
 
