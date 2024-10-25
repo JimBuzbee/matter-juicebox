@@ -21,7 +21,7 @@ import yargs from "yargs/yargs";
 const argv : any = yargs(process.argv).parse();
 
 // host and port of the JuiceBox
-const juiceBoxIP = argv.juicebox_host; // '192.168.1.107'; 
+const juiceBoxIP = argv.juicebox_host; // e.g. '192.168.1.107'; 
 const juiceBoxTelnetPort = argv.juicebox_telnet_port ?? 2000;
 const juiceBoxPollSeconds = argv.juicebox_poll_seconds ?? 30;
 
